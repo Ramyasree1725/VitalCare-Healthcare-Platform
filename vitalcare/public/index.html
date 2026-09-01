@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VitalCare Healthcare Platform | Multi-Specialty Hospital</title>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- White Theme Stylesheet -->
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body class="white-theme">
+
+  <!-- Top Emergency Strip -->
+  <div class="top-strip">
+    <div class="container strip-flex">
+      <div class="strip-left">
+        <span><i class="fas fa-phone-volume"></i> <strong>24/7 Helpline:</strong> 108 / +91 (800) 425-VITAL</span>
+        <span>|</span>
+        <span><i class="fas fa-certificate"></i> NABL & NABH Accredited Multi-Specialty Hospital</span>
+        <span>|</span>
+        <span><i class="fas fa-truck-medical"></i> Free Home Sample Collection</span>
+      </div>
+      <div class="strip-right">
+        <span><i class="fas fa-server"></i> Server Online: Port 9090</span>
+        <button class="sos-btn" onclick="openAmbulanceModal()"><i class="fas fa-truck-medical"></i> Emergency 108</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation Header -->
+  <header class="header">
+    <div class="container header-flex">
+      <a href="#home" class="brand">
+        <div class="brand-icon"><i class="fas fa-heart-pulse"></i></div>
+        <div class="brand-text">Vital<span>Care</span></div>
+      </a>
+
+      <nav class="nav">
+        <a href="#home" class="nav-link active"><i class="fas fa-house"></i> Home</a>
+        <a href="#specialties" class="nav-link"><i class="fas fa-stethoscope"></i> Specialties</a>
+        <a href="#doctors" class="nav-link"><i class="fas fa-user-doctor"></i> Doctors</a>
+        <a href="#checker" class="nav-link"><i class="fas fa-clipboard-check"></i> Symptom Checker</a>
+        <a href="#packages" class="nav-link"><i class="fas fa-box-medical"></i> Checkup Packages</a>
+        <a href="#tests" class="nav-link"><i class="fas fa-vial"></i> Lab Tests</a>
+        <a href="#bloodbank" class="nav-link"><i class="fas fa-droplet"></i> Blood Bank</a>
+        <a href="#pharmacy" class="nav-link"><i class="fas fa-pills"></i> Pharmacy</a>
+        <a href="#portal" class="nav-link"><i class="fas fa-file-medical"></i> Patient Portal</a>
+      </nav>
+
+      <div class="header-actions">
+        <!-- Cart Bag -->
+        <button class="btn-cart" id="pharmacyCartBtn" onclick="openCart()">
+          <i class="fas fa-basket-shopping"></i> Bag <span class="cart-count" id="cartBadgeCount">0</span>
+        </button>
+
+        <!-- User Session / Auth Buttons -->
+        <div id="authHeaderWrap">
+          <button class="btn btn-outline" onclick="openAuthModal('login')"><i class="fas fa-right-to-bracket"></i> Login / Register</button>
+        </div>
+
+        <a href="#booking" class="btn btn-primary"><i class="fas fa-calendar-check"></i> Book OPD</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="container hero-grid">
+      <div>
+        <div class="hero-tag"><i class="fas fa-shield-halved"></i> Quaternary Medical & Diagnostic Center</div>
+        <h1 class="hero-title">
+          Advanced Healthcare, <br>
+          <span class="text-blue">Simplified for You</span>
+        </h1>
+        <p class="hero-desc">
+          VitalCare Healthcare Platform provides expert OPD consultations, full-body health checkup packages, digital pathology lab reports, and 24/7 emergency care.
+        </p>
+
+        <div class="hero-btns">
+          <a href="#booking" class="btn btn-primary btn-lg"><i class="fas fa-calendar-check"></i> Book Doctor OPD Visit</a>
+          <a href="#packages" class="btn btn-outline btn-lg"><i class="fas fa-box-medical"></i> Explore Health Packages</a>
+        </div>
+
+        <div class="hero-stats">
+          <div class="stat-card">
+            <strong>50+</strong>
+            <span>Senior Specialists</span>
+          </div>
+          <div class="stat-card">
+            <strong>10,000+</strong>
+            <span>Satisfied Patients</span>
+          </div>
+          <div class="stat-card">
+            <strong>750+</strong>
+            <span>Hospital Beds</span>
+          </div>
+          <div class="stat-card">
+            <strong>Same Day</strong>
+            <span>Lab Reports</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- OPD Booking Form Widget -->
+      <div id="booking">
+        <div class="card">
+          <div class="card-head">
+            <h3><i class="fas fa-calendar-plus" style="color:var(--primary);"></i> Book OPD Appointment</h3>
+          </div>
+          <form id="heroOpdForm">
+            <div class="form-group">
+              <label>Patient Full Name *</label>
+              <input type="text" name="patientName" class="form-control" placeholder="e.g. K. Venkat Rao" required>
+            </div>
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label>Mobile Number *</label>
+                <input type="tel" name="phone" class="form-control" placeholder="+91 98480 00000" required>
+              </div>
+              <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" name="email" class="form-control" placeholder="patient@example.com">
+              </div>
+            </div>
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label>Department *</label>
+                <select name="department" id="deptSelect" class="form-control" required>
+                  <option value="Cardiology & Cardiac Care">Cardiology & Cardiac Care</option>
+                  <option value="Neurology & Neurosurgery">Neurology & Neurosurgery</option>
+                  <option value="Orthopedics & Joint Surgery">Orthopedics & Joint Surgery</option>
+                  <option value="Gastroenterology & Liver Care">Gastroenterology & Liver Care</option>
+                  <option value="Oncology & Cancer Care">Oncology & Cancer Care</option>
+                  <option value="Nephrology & Dialysis Unit">Nephrology & Dialysis Unit</option>
+                  <option value="Pediatrics & Child Care">Pediatrics & Child Care</option>
+                  <option value="Emergency & Trauma Center">Emergency & Trauma Center</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Doctor Specialist</label>
+                <select name="doctor" id="doctorSelect" class="form-control">
+                  <option value="Dr. K. V. Ramana Rao">Dr. K. V. Ramana Rao (Cardiology)</option>
+                  <option value="Dr. Ananya Sharma">Dr. Ananya Sharma (Neurology)</option>
+                  <option value="Dr. Rajeshwar Varma">Dr. Rajeshwar Varma (Orthopedics)</option>
+                  <option value="Dr. Meenakshi Sundaram">Dr. Meenakshi Sundaram (Pediatrics)</option>
+                  <option value="Dr. P. Suresh Kumar">Dr. P. Suresh Kumar (Gastroenterology)</option>
+                  <option value="Dr. S. Lakshmi Devi">Dr. S. Lakshmi Devi (Oncology)</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label>Appointment Date *</label>
+                <input type="date" name="date" id="dateInput" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label>Time Slot *</label>
+                <select name="time" class="form-control" required>
+                  <option value="10:00 AM" selected>10:00 AM - Morning</option>
+                  <option value="11:30 AM">11:30 AM - Morning</option>
+                  <option value="02:30 PM">02:30 PM - Afternoon</option>
+                  <option value="04:00 PM">04:00 PM - Evening</option>
+                </select>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block btn-lg"><i class="fas fa-check-circle"></i> Confirm Appointment</button>
+          </form>
+          <div id="opdBookingResult" style="display:none; margin-top:16px;"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Clinical Specialties -->
+  <section class="section section-white" id="specialties">
+    <div class="container">
+      <div class="section-head text-center">
+        <span class="sub-tag"><i class="fas fa-stethoscope"></i> Centers of Excellence</span>
+        <h2>Clinical Specialties</h2>
+        <p>Comprehensive medical departments equipped with advanced diagnostic labs and modular ICUs.</p>
+      </div>
+
+      <div class="grid-4" id="specialtiesGrid">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Senior Doctors Directory -->
+  <section class="section" id="doctors">
+    <div class="container">
+      <div class="section-head text-center">
+        <span class="sub-tag"><i class="fas fa-user-doctor"></i> Medical Experts</span>
+        <h2>Senior Consultant Doctors</h2>
+        <p>Consult with renowned specialists with decades of clinical experience.</p>
+      </div>
+
+      <div class="grid-3" id="doctorsGrid">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Symptom Risk Assessment -->
+  <section class="section section-white" id="checker">
+    <div class="container">
+      <div class="section-head text-center">
+        <span class="sub-tag"><i class="fas fa-clipboard-check"></i> Diagnostics Tool</span>
+        <h2>Interactive Symptom Risk Assessment</h2>
+        <p>Select your symptoms for an immediate organ risk rating and recommended diagnostic tests.</p>
+      </div>
+
+      <div class="card" style="max-width:900px; margin:0 auto;">
+        <form id="symptomCheckForm">
+          <div class="symptom-grid">
+            <label class="symptom-card">
+              <input type="checkbox" name="symptoms" value="fatigue">
+              <span><i class="fas fa-battery-quarter" style="color:var(--primary);"></i> Extreme Fatigue</span>
+            </label>
+            <label class="symptom-card">
+              <input type="checkbox" name="symptoms" value="chest_pain">
+              <span><i class="fas fa-heart-crack" style="color:var(--danger);"></i> Chest Discomfort</span>
+            </label>
+            <label class="symptom-card">
+              <input type="checkbox" name="symptoms" value="shortness_breath">
+              <span><i class="fas fa-lungs" style="color:var(--primary);"></i> Shortness of Breath</span>
+            </label>
+            <label class="symptom-card">
+              <input type="checkbox" name="symptoms" value="thirst">
+              <span><i class="fas fa-droplet" style="color:var(--primary);"></i> Frequent Thirst</span>
+            </label>
+            <label class="symptom-card">
+              <input type="checkbox" name="symptoms" value="headache">
+              <span><i class="fas fa-brain" style="color:var(--primary);"></i> Chronic Headache</span>
+            </label>
+          </div>
+
+          <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border-color); padding-top:16px;">
+            <div class="form-group" style="margin-bottom:0; width:160px;">
+              <label>Patient Age</label>
+              <input type="number" id="symptomAge" class="form-control" value="38" min="1" max="100">
+            </div>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-calculator"></i> Run Symptom Check</button>
+          </div>
+        </form>
+
+        <div id="symptomResultBanner" style="display:none; margin-top:20px;"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Health Checkup Packages -->
+  <section class="section" id="packages">
+    <div class="container">
+      <div class="section-head text-center">
+        <span class="sub-tag"><i class="fas fa-box-medical"></i> Health Checkups</span>
+        <h2>Master Preventive Health Packages</h2>
+        <p>Full-body preventive diagnostic panels engineered for longevity and wellness.</p>
+      </div>
+
+      <div class="grid-4" id="packagesGrid">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Diagnostic Lab Tests Catalog -->
+  <section class="section section-white" id="tests">
+    <div class="container">
+      <div class="section-head text-center">
+        <span class="sub-tag"><i class="fas fa-vial"></i> Pathology Catalog</span>
+        <h2>Diagnostic Pathology Lab Tests</h2>
+        <p>Book individual blood tests, lipid panels, thyroid profile, and kidney clearance tests.</p>
+      </div>
+
+      <div class="grid-3" id="testsGrid">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Live Blood Bank Tracker -->
+  <section class="section" id="bloodbank">
+    <div class="container">
+      <div class="section-head text-center">
+        <span class="sub-tag"><i class="fas fa-droplet"></i> Live Inventory</span>
+        <h2>24/7 Live Blood Bank Availability</h2>
+        <p>Real-time whole blood, platelet, and plasma stock registry.</p>
+      </div>
+
+      <div class="card">
+        <div class="grid-4" id="bloodBankGrid">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Online Hospital Pharmacy -->
+  <section class="section section-white" id="pharmacy">
+    <div class="container">
+      <div class="section-head text-center">
+        <span class="sub-tag"><i class="fas fa-pills"></i> E-Pharmacy</span>
+        <h2>Online Hospital Pharmacy</h2>
+        <p>Genuine pharmaceuticals directly from certified manufacturers with doorstep delivery.</p>
+      </div>
+
+      <div class="grid-3" id="pharmacyGrid">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Patient Portal & Tracker -->
+  <section class="section" id="portal">
+    <div class="container">
+      <div class="section-head text-center">
+        <span class="sub-tag"><i class="fas fa-file-medical"></i> Patient Portal</span>
+        <h2>Appointment Lookup & OPD Tracker</h2>
+        <p>Enter your 6-digit booking code (e.g. VITAL-984210) to view appointment details or print pass.</p>
+      </div>
+
+      <div class="card" style="max-width:600px; margin:0 auto;">
+        <form id="trackerForm" style="display:flex; gap:10px;">
+          <input type="text" id="trackerCodeInput" class="form-control" placeholder="Enter confirmation code (e.g. VITAL-984210)" required>
+          <button type="submit" class="btn btn-primary"><i class="fas fa-magnifying-glass"></i> Lookup</button>
+        </form>
+        <div id="trackerOutput" style="display:none; margin-top:20px;"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <h4><i class="fas fa-heart-pulse" style="color:var(--primary);"></i> VitalCare Healthcare</h4>
+        <p style="margin-top:10px;">Quaternary medical institute committed to clinical quality, transparency, and patient care.</p>
+      </div>
+
+      <div>
+        <h4>Specialties</h4>
+        <ul>
+          <li><a href="#specialties"><i class="fas fa-angle-right"></i> Cardiology</a></li>
+          <li><a href="#specialties"><i class="fas fa-angle-right"></i> Neurology</a></li>
+          <li><a href="#specialties"><i class="fas fa-angle-right"></i> Orthopedics</a></li>
+          <li><a href="#specialties"><i class="fas fa-angle-right"></i> Oncology</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#booking"><i class="fas fa-angle-right"></i> Book OPD Visit</a></li>
+          <li><a href="#packages"><i class="fas fa-angle-right"></i> Health Checkups</a></li>
+          <li><a href="#bloodbank"><i class="fas fa-angle-right"></i> Blood Bank</a></li>
+          <li><a href="#pharmacy"><i class="fas fa-angle-right"></i> Online Pharmacy</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>24/7 Emergency</h4>
+        <p style="margin-bottom:12px;">Call 108 for immediate ICU ambulance dispatch.</p>
+        <button class="btn btn-danger btn-block" onclick="openAmbulanceModal()"><i class="fas fa-truck-medical"></i> Dispatch Ambulance</button>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      &copy; 2026 VitalCare Healthcare Platform. All rights reserved. (Server Port: 9090)
+    </div>
+  </footer>
+
+  <!-- Login & Registration Modal -->
+  <div class="modal-overlay" id="authModal" style="display:none;">
+    <div class="modal-content">
+      <div class="modal-head">
+        <div class="modal-title" id="authModalTitle"><i class="fas fa-user-circle"></i> Patient & Staff Account Portal</div>
+        <button class="modal-close" onclick="closeAuthModal()"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="modal-body">
+
+        <!-- Tabs -->
+        <div class="auth-tabs">
+          <div class="auth-tab active" id="tabLoginBtn" onclick="switchAuthTab('login')"><i class="fas fa-right-to-bracket"></i> Login</div>
+          <div class="auth-tab" id="tabRegisterBtn" onclick="switchAuthTab('register')"><i class="fas fa-user-plus"></i> Register</div>
+        </div>
+
+        <!-- Login Form -->
+        <form id="loginForm">
+          <div class="form-group">
+            <label>Email Address *</label>
+            <input type="email" id="loginEmail" class="form-control" placeholder="venkat@example.com" required>
+          </div>
+          <div class="form-group">
+            <label>Password *</label>
+            <input type="password" id="loginPassword" class="form-control" placeholder="••••••••" required>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block btn-lg"><i class="fas fa-right-to-bracket"></i> Login to Account</button>
+        </form>
+
+        <!-- Register Form -->
+        <form id="registerForm" style="display:none;">
+          <div class="form-group">
+            <label>Full Name *</label>
+            <input type="text" id="regFullName" class="form-control" placeholder="e.g. K. Venkat Rao" required>
+          </div>
+          <div class="form-group">
+            <label>Email Address *</label>
+            <input type="email" id="regEmail" class="form-control" placeholder="venkat@example.com" required>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label>Phone Number *</label>
+              <input type="tel" id="regPhone" class="form-control" placeholder="+91 98480 00000" required>
+            </div>
+            <div class="form-group">
+              <label>Role</label>
+              <select id="regRole" class="form-control">
+                <option value="Patient" selected>Patient</option>
+                <option value="Doctor">Doctor / Staff</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Create Password *</label>
+            <input type="password" id="regPassword" class="form-control" placeholder="Minimum 6 characters" required>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block btn-lg"><i class="fas fa-user-plus"></i> Create Account</button>
+        </form>
+
+        <div id="authStatusMsg" style="display:none; margin-top:16px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pharmacy Cart Drawer -->
+  <aside class="cart-drawer" id="cartDrawer">
+    <div class="modal-head">
+      <div class="modal-title"><i class="fas fa-basket-shopping"></i> Pharmacy Medicine Bag</div>
+      <button class="modal-close" onclick="closeCart()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="drawer-body" id="cartItemsContainer"></div>
+    <div class="drawer-foot" id="cartFooter" style="display:none;">
+      <div style="display:flex; justify-content:space-between; margin-bottom:12px; font-weight:800; font-size:1.1rem;">
+        <span>Total Payable:</span>
+        <span id="cartTotalSum">₹0.00</span>
+      </div>
+      <button class="btn btn-primary btn-block btn-lg" onclick="openCheckoutModal()"><i class="fas fa-truck-fast"></i> Proceed to Order</button>
+    </div>
+  </aside>
+
+  <!-- Pharmacy Checkout Modal -->
+  <div class="modal-overlay" id="checkoutModal" style="display:none;">
+    <div class="modal-content">
+      <div class="modal-head">
+        <div class="modal-title"><i class="fas fa-box-check"></i> Complete Pharmacy Order</div>
+        <button class="modal-close" onclick="closeCheckoutModal()"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="modal-body">
+        <form id="checkoutForm">
+          <div class="form-group">
+            <label>Recipient Name *</label>
+            <input type="text" id="rxName" class="form-control" required placeholder="Full Name">
+          </div>
+          <div class="form-group">
+            <label>Phone Number *</label>
+            <input type="tel" id="rxPhone" class="form-control" required placeholder="+91 98480 00000">
+          </div>
+          <div class="form-group">
+            <label>Delivery Address *</label>
+            <input type="text" id="rxAddress" class="form-control" required placeholder="Street address, City, ZIP">
+          </div>
+          <button type="submit" class="btn btn-primary btn-block btn-lg"><i class="fas fa-check"></i> Place Medicine Order</button>
+        </form>
+        <div id="rxStatusMsg" style="display:none; margin-top:16px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Emergency Ambulance Modal -->
+  <div class="modal-overlay" id="ambulanceModal" style="display:none;">
+    <div class="modal-content">
+      <div class="modal-head" style="background:var(--danger); color:#ffffff;">
+        <div class="modal-title"><i class="fas fa-truck-medical"></i> DISPATCH AMBULANCE (108)</div>
+        <button class="modal-close" onclick="closeAmbulanceModal()" style="color:#ffffff;"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="modal-body">
+        <form id="ambulanceForm">
+          <div class="form-group">
+            <label>Caller Name *</label>
+            <input type="text" id="ambCaller" class="form-control" required placeholder="Caller Name">
+          </div>
+          <div class="form-group">
+            <label>Callback Phone *</label>
+            <input type="tel" id="ambPhone" class="form-control" required placeholder="+91 98480 00000">
+          </div>
+          <div class="form-group">
+            <label>Pickup Landmark Location *</label>
+            <input type="text" id="ambLoc" class="form-control" required placeholder="Full Street Address / Landmark">
+          </div>
+          <button type="submit" class="btn btn-danger btn-block btn-lg"><i class="fas fa-truck-medical"></i> DISPATCH AMBULANCE NOW</button>
+        </form>
+        <div id="ambStatusMsg" style="display:none; margin-top:16px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Hub -->
+  <div class="toast-hub" id="toastHub"></div>
+
+  <!-- Main JavaScript File -->
+  <script src="/js/app.js"></script>
+</body>
+</html>
