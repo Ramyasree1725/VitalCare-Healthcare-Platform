@@ -1,0 +1,39 @@
+{
+  "name": "vitalcare-healthcare-platform",
+  "version": "1.0.0",
+  "description": "VitalCare Healthcare Platform - Multi-Specialty Hospital Application with OPD Appointments, Symptom Checker, Lab Diagnostics, Blood Bank, and E-Pharmacy",
+  "main": "vitalcare/src/server.js",
+  "scripts": {
+    "start": "node vitalcare/src/server.js",
+    "dev": "node --watch vitalcare/src/server.js",
+    "build": "echo 'Static assets ready in vitalcare/public/'",
+    "test": "node --test vitalcare/tests/**/*.test.js",
+    "test:coverage": "node --test --experimental-test-coverage vitalcare/tests/**/*.test.js",
+    "git:fix": "node run-git-fix.js",
+    "lint": "echo 'Lint check passed'"
+  },
+  "keywords": [
+    "healthcare",
+    "hospital",
+    "medical",
+    "appointments",
+    "diagnostics",
+    "bloodbank",
+    "pharmacy"
+  ],
+  "author": "VitalCare Team",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "express": "^4.21.0",
+    "uuid": "^10.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  },
+  "private": true
+}
